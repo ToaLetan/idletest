@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Timer
 {
+    private const float SECOND = 1000.0f;
+
     private double count = 0;
 
+    private float currentTime = 0.0f;
     private float incrementPerTick   = 0.0f;
     private float incrementPerSecond = 1.0f;
     private float ticksPerSecond     = 1.0f;
@@ -44,6 +47,15 @@ public class Timer
     {
         if (running)
         {
+            currentTime++;
+
+            //Increment the rate of counting every second
+            if (currentTime >= SECOND)
+            {
+                IncreaseIncrement();
+                currentTime = 0;
+            }
+
             if (incrementPerTick < 1.0f)
                 count++;
             else
@@ -51,5 +63,10 @@ public class Timer
 
             Debug.Log(count);
         }
+    }
+
+    private void IncreaseIncrement()
+    {
+        IncrementPerSecond = incrementPerSecond * 1.07f;
     }
 }
