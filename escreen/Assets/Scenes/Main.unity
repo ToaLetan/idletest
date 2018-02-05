@@ -155,7 +155,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 82554d3e6142c3f46b6f5c027f49df3d, type: 2}
   m_IsPrefabParent: 0
---- !u!1001 &254917544
+--- !u!20 &175781311 stripped
+Camera:
+  m_PrefabParentObject: {fileID: 20114478156113324, guid: 82554d3e6142c3f46b6f5c027f49df3d,
+    type: 2}
+  m_PrefabInternal: {fileID: 175781310}
+--- !u!1001 &396259460
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -252,85 +257,40 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 224909421224471704, guid: 2c0004fd085df7b4da751b27e02508c4,
+    - target: {fileID: 114629424739785948, guid: 2c0004fd085df7b4da751b27e02508c4,
         type: 2}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224909421224471704, guid: 2c0004fd085df7b4da751b27e02508c4,
-        type: 2}
-      propertyPath: m_AnchorMax.y
+      propertyPath: m_havePropertiesChanged
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 224909421224471704, guid: 2c0004fd085df7b4da751b27e02508c4,
+    - target: {fileID: 114629424739785948, guid: 2c0004fd085df7b4da751b27e02508c4,
         type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114168998566641210, guid: 2c0004fd085df7b4da751b27e02508c4,
-        type: 2}
-      propertyPath: m_FontData.m_FontSize
-      value: 28
-      objectReference: {fileID: 0}
-    - target: {fileID: 114168998566641210, guid: 2c0004fd085df7b4da751b27e02508c4,
-        type: 2}
-      propertyPath: m_FontData.m_MinSize
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 224909421224471704, guid: 2c0004fd085df7b4da751b27e02508c4,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114168998566641210, guid: 2c0004fd085df7b4da751b27e02508c4,
-        type: 2}
-      propertyPath: m_FontData.m_Alignment
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 114168998566641210, guid: 2c0004fd085df7b4da751b27e02508c4,
-        type: 2}
-      propertyPath: m_FontData.m_AlignByGeometry
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224909421224471704, guid: 2c0004fd085df7b4da751b27e02508c4,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224909421224471704, guid: 2c0004fd085df7b4da751b27e02508c4,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: -80
-      objectReference: {fileID: 0}
-    - target: {fileID: 224029615681935498, guid: 2c0004fd085df7b4da751b27e02508c4,
-        type: 2}
-      propertyPath: m_AnchorMax.y
+      propertyPath: m_isInputParsingRequired
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 223236617467910754, guid: 2c0004fd085df7b4da751b27e02508c4,
+        type: 2}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 175781311}
+    - target: {fileID: 114507360271833798, guid: 2c0004fd085df7b4da751b27e02508c4,
+        type: 2}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 1202891947}
+    - target: {fileID: 114629424739785948, guid: 2c0004fd085df7b4da751b27e02508c4,
+        type: 2}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114629424739785948, guid: 2c0004fd085df7b4da751b27e02508c4,
+        type: 2}
+      propertyPath: m_fontSize
+      value: 72
       objectReference: {fileID: 0}
     - target: {fileID: 224029615681935498, guid: 2c0004fd085df7b4da751b27e02508c4,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: -328
-      objectReference: {fileID: 0}
-    - target: {fileID: 224029615681935498, guid: 2c0004fd085df7b4da751b27e02508c4,
-        type: 2}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224029615681935498, guid: 2c0004fd085df7b4da751b27e02508c4,
-        type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224029615681935498, guid: 2c0004fd085df7b4da751b27e02508c4,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224029615681935498, guid: 2c0004fd085df7b4da751b27e02508c4,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -490
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2c0004fd085df7b4da751b27e02508c4, type: 2}
@@ -377,33 +337,9 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8e3b72575d9992d44a5e619a9a228105, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &628382798 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1821657249912396, guid: 2c0004fd085df7b4da751b27e02508c4,
-    type: 2}
-  m_PrefabInternal: {fileID: 254917544}
---- !u!114 &628382800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 628382798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ce97a5a54066eb42aaefb37e1ec0ff8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameManager: {fileID: 1202891947}
-  counterLabel: {fileID: 1730111910}
 --- !u!114 &1202891947 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114153081100676824, guid: 8e3b72575d9992d44a5e619a9a228105,
     type: 2}
   m_PrefabInternal: {fileID: 587990027}
   m_Script: {fileID: 11500000, guid: f9de9d4cc21aa5f41ac793e5a9583a0c, type: 3}
---- !u!114 &1730111910 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114168998566641210, guid: 2c0004fd085df7b4da751b27e02508c4,
-    type: 2}
-  m_PrefabInternal: {fileID: 254917544}
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}

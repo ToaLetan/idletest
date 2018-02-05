@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; //Included for Text components
+using TMPro;
 
 public class ResourceDisplay : MonoBehaviour
 {
     [Header("Game Manager")]
     [SerializeField] private GameManager gameManager;
 
-    [Header("Text")]
-    [SerializeField] private Text counterLabel;
+    [Header("TextMeshProUGUI Text")]
+    [SerializeField] private TextMeshProUGUI counterLabel;
 
 	// Use this for initialization
 	void Start ()
