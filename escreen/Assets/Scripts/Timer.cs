@@ -18,6 +18,7 @@ public class Timer
     public double Count
     {
         get { return count; }
+        set { count = 0; }
     }
 
     public float IncrementPerSecond

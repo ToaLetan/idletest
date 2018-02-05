@@ -39,9 +39,15 @@ public class ResourceDisplay : MonoBehaviour
 
     private ResourceType activeResource = ResourceType.Resources;
 
+    private double resourcesAmount;
+    private double spiritAmount;
+    private double mindsetAmount;
+    private double talentAmount;
+
     // Use this for initialization
     void Start ()
     {
+        activeResourceButton.onClick.AddListener(AddToActiveResource);
         resourcesButton.onClick.AddListener(SetActive_Resources);
         spiritButton.onClick.AddListener(SetActive_Spirit);
         mindsetButton.onClick.AddListener(SetActive_Mindset);
@@ -78,6 +84,37 @@ public class ResourceDisplay : MonoBehaviour
     private void SetActive_Talent() //Button onClick event to set Talent as active
     {
         UpdateActiveResourceDisplay(ResourceType.Talent);
+    }
+
+    private void AddToActiveResource()
+    {
+        //TODO: Figure out how to track resources accumulated outside the app (between pauses/exits)
+        // refer to OnApplicationPause(bool) and OnApplicationFocus(bool)
+
+
+        switch (activeResource)
+        {
+            case ResourceType.Resources:
+                resourcesAmount += gameManager.GameTimer.Count;
+                resourcesValue.text = resourcesAmount.ToString();
+                break;
+            case ResourceType.Spirit:
+                spiritAmount += gameManager.GameTimer.Count;
+                spiritValue.text = spiritAmount.ToString();
+                break;
+            case ResourceType.Mindset:
+                mindsetAmount += gameManager.GameTimer.Count;
+                mindsetValue.text = mindsetAmount.ToString();
+                break;
+            case ResourceType.Talent:
+                talentAmount += gameManager.GameTimer.Count;
+                talentValue.text = talentAmount.ToString();
+                break;
+            default:
+                break;
+        }
+
+        gameManager.GameTimer.Count = 0;
     }
 
     private void UpdateActiveResourceDisplay(ResourceType activeResourceType) //Set the active resource button's visuals
