@@ -88,10 +88,6 @@ public class ResourceDisplay : MonoBehaviour
 
     private void AddToActiveResource()
     {
-        //TODO: Figure out how to track resources accumulated outside the app (between pauses/exits)
-        // refer to OnApplicationPause(bool) and OnApplicationFocus(bool)
-
-
         switch (activeResource)
         {
             case ResourceType.Resources:

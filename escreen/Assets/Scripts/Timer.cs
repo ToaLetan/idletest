@@ -18,7 +18,7 @@ public class Timer
     public double Count
     {
         get { return count; }
-        set { count = 0; }
+        set { count = value; }
     }
 
     public float IncrementPerSecond
@@ -46,6 +46,9 @@ public class Timer
 
     public void Update()
     {
+        //TODO: Figure out how to track resources accumulated outside the app (between pauses/exits)
+        // refer to OnApplicationPause(bool) and OnApplicationFocus(bool)
+
         if (running)
         {
             currentTime++;
@@ -62,7 +65,7 @@ public class Timer
             else
                 count += incrementPerTick;
 
-            Debug.Log(count);
+            //Debug.Log(count);
         }
     }
 
