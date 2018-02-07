@@ -39,14 +39,10 @@ public class ResourceDisplay : MonoBehaviour
 
     private ResourceType activeResource = ResourceType.Resources;
 
-    private double resourcesAmount;
-    private double spiritAmount;
-    private double mindsetAmount;
-    private double talentAmount;
-
     // Use this for initialization
     void Start ()
     {
+        //Subscribe to all button events
         activeResourceButton.onClick.AddListener(AddToActiveResource);
         resourcesButton.onClick.AddListener(SetActive_Resources);
         spiritButton.onClick.AddListener(SetActive_Spirit);
@@ -64,6 +60,20 @@ public class ResourceDisplay : MonoBehaviour
     {
         if (gameManager.GameTimer != null)
             counterLabel.text = "+" + gameManager.GameTimer.Count.ToString();
+    }
+
+    public void InitDisplay() //Populate all displays with info from the GameManager's Timer
+    {
+        if (gameManager.GameTimer != null)
+        {
+            counterLabel.text = "+" + gameManager.GameTimer.Count.ToString();
+            resourcesValue.text = gameManager.GameTimer.ResourcesAmount.ToString();
+            spiritValue.text = gameManager.GameTimer.SpiritAmount.ToString();
+            mindsetValue.text = gameManager.GameTimer.MindsetAmount.ToString();
+            talentValue.text = gameManager.GameTimer.TalentAmount.ToString();
+
+            UpdateActiveResourceDisplay(activeResource);
+        }
     }
 
     private void SetActive_Resources() //Button onClick event to set Resources as active
@@ -91,20 +101,20 @@ public class ResourceDisplay : MonoBehaviour
         switch (activeResource)
         {
             case ResourceType.Resources:
-                resourcesAmount += gameManager.GameTimer.Count;
-                resourcesValue.text = resourcesAmount.ToString();
+                gameManager.GameTimer.ResourcesAmount += gameManager.GameTimer.Count;
+                resourcesValue.text = gameManager.GameTimer.ResourcesAmount.ToString();
                 break;
             case ResourceType.Spirit:
-                spiritAmount += gameManager.GameTimer.Count;
-                spiritValue.text = spiritAmount.ToString();
+                gameManager.GameTimer.SpiritAmount += gameManager.GameTimer.Count;
+                spiritValue.text = gameManager.GameTimer.SpiritAmount.ToString();
                 break;
             case ResourceType.Mindset:
-                mindsetAmount += gameManager.GameTimer.Count;
-                mindsetValue.text = mindsetAmount.ToString();
+                gameManager.GameTimer.MindsetAmount += gameManager.GameTimer.Count;
+                mindsetValue.text = gameManager.GameTimer.MindsetAmount.ToString();
                 break;
             case ResourceType.Talent:
-                talentAmount += gameManager.GameTimer.Count;
-                talentValue.text = talentAmount.ToString();
+                gameManager.GameTimer.TalentAmount += gameManager.GameTimer.Count;
+                talentValue.text = gameManager.GameTimer.TalentAmount.ToString();
                 break;
             default:
                 break;

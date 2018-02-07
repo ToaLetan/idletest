@@ -5,10 +5,12 @@ using System;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private ResourceDisplay resourceDisplay;
+
     private Timer gameTimer;
 
-    TimeSpan diffTimeBetweenPause = new TimeSpan(0, 0, 0); //The amount of time elapsed between pausing and resuming the app
-    DateTime lastPauseTime = DateTime.Now;
+    private TimeSpan diffTimeBetweenPause = new TimeSpan(0, 0, 0); //The amount of time elapsed between pausing and resuming the app
+    private DateTime lastPauseTime = DateTime.Now;
 
     public Timer GameTimer
     {
@@ -20,7 +22,7 @@ public class GameManager : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-        gameTimer = new Timer(1, Time.deltaTime, true);
+        LoadTimer();
 	}
 	
 	// Update is called once per frame
@@ -32,10 +34,10 @@ public class GameManager : MonoBehaviour
 
     void OnApplicationFocus(bool hasFocus) //Called every time the app loses or gains focus
     {
-
-        if (!hasFocus) //If paused, store the date time
+        if (!hasFocus) //If paused, store the date time and save the local timer file
         {
             lastPauseTime = DateTime.Now;
+            SaveTimer();
         }
         else
         {
@@ -61,4 +63,22 @@ public class GameManager : MonoBehaviour
             Debug.Log("Elapsed time: " + diffTimeBetweenPause.TotalSeconds);
         }
     }
+
+    #region File I/O
+    private void LoadTimer() //Load the Timer file and populate the display based on saved data
+    {
+        gameTimer = TimerIO.LoadCounter();
+
+        if (gameTimer == null)
+            gameTimer = new Timer(1, Time.deltaTime, true);
+
+        resourceDisplay.InitDisplay();
+    }
+
+    private void SaveTimer()
+    {
+        TimerIO.SaveCounter(gameTimer);
+    }
+
+    #endregion
 }

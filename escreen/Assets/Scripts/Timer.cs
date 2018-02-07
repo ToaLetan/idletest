@@ -1,12 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class Timer
+[Serializable]
+public class Timer //Timer class to track resource accumulation. Flagged as Serializable for file I/O
 {
+    public const string TIMER_FILE_NAME = "counter";
+
     private const float SECOND = 1000.0f;
 
+    //Resources
     private double count = 0;
+    private double resourcesAmount = 0;
+    private double spiritAmount = 0;
+    private double mindsetAmount = 0;
+    private double talentAmount = 0;
 
     private float currentTime = 0.0f;
     private float incrementPerTick   = 0.0f;
@@ -15,10 +24,35 @@ public class Timer
 
     private bool running = false;
 
+    //Resource Properties
     public double Count
     {
         get { return count; }
         set { count = value; }
+    }
+
+    public double ResourcesAmount
+    {
+        get { return resourcesAmount; }
+        set { resourcesAmount = value; }
+    }
+
+    public double SpiritAmount
+    {
+        get { return spiritAmount; }
+        set { spiritAmount = value; }
+    }
+
+    public double MindsetAmount
+    {
+        get { return mindsetAmount; }
+        set { mindsetAmount = value; }
+    }
+
+    public double TalentAmount
+    {
+        get { return talentAmount; }
+        set { talentAmount = value; }
     }
 
     public float IncrementPerSecond
