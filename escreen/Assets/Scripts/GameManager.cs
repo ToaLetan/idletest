@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
     private TimeSpan diffTimeBetweenPause = new TimeSpan(0, 0, 0); //The amount of time elapsed between pausing and resuming the app
     private DateTime lastPauseTime = DateTime.Now;
 
+    //Testing OAuth
+    private string userID = "apiuser";
+
     public Timer GameTimer
     {
         get { return gameTimer; }
@@ -22,6 +25,16 @@ public class GameManager : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
+        //OAuth
+        StartCoroutine(OAuthHandler.GetTimer(userID, (timerResult) =>
+        {
+            string timerInfo = timerResult;
+
+            //Populate the Timer
+            UnityEngine.Debug.Log(timerInfo);
+
+        }));
+
         LoadTimer();
 	}
 	
@@ -65,6 +78,7 @@ public class GameManager : MonoBehaviour
     }
 
     #region File I/O
+    //LOCAL
     private void LoadTimer() //Load the Timer file and populate the display based on saved data
     {
         gameTimer = TimerIO.LoadCounter();
@@ -79,6 +93,8 @@ public class GameManager : MonoBehaviour
     {
         TimerIO.SaveCounter(gameTimer);
     }
+
+
 
     #endregion
 }
