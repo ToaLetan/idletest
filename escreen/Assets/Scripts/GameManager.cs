@@ -26,12 +26,12 @@ public class GameManager : MonoBehaviour
 	void Start ()
     {
         //OAuth
-        StartCoroutine(OAuthHandler.GetTimer(userID, (timerResult) =>
+        StartCoroutine(OAuthHandler.GetAccessToken(userID =>
         {
-            string timerInfo = timerResult;
+            //string timerInfo = timerResult;
 
             //Populate the Timer
-            UnityEngine.Debug.Log(timerInfo);
+            //UnityEngine.Debug.Log(timerInfo);
 
         }));
 
@@ -54,8 +54,12 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            //DEBUG NOTES: inactiveCount accumulated for inactive time becomes 0 eventually
+
             diffTimeBetweenPause = DateTime.Now - lastPauseTime;
             lastPauseTime = DateTime.Now;
+
+            double inactiveCount = 0;
 
             if (gameTimer != null)
             {
@@ -69,11 +73,21 @@ public class GameManager : MonoBehaviour
 
                 float wholeSeconds = Mathf.Floor(secondsElapsed);
 
-                gameTimer.IncrementPerSecond = (gameTimer.IncrementPerSecond * 1.07f * wholeSeconds);
+                if (wholeSeconds > 0)
+                    gameTimer.IncrementPerSecond += (1.07f * secondsElapsed);
 
-                gameTimer.Count += Mathf.Floor(gameTimer.IncrementPerSecond * wholeSeconds);
+
+
+                inactiveCount = Mathf.Floor(gameTimer.IncrementPerSecond * wholeSeconds);
+
+                gameTimer.Count += inactiveCount;
+
+                Debug.Log("Increment Per Second: " + gameTimer.IncrementPerSecond);
+                Debug.Log("Elapsed time: " + secondsElapsed + " | Inactive resources earned: " + inactiveCount);
             }
-            Debug.Log("Elapsed time: " + diffTimeBetweenPause.TotalSeconds);
+            else
+                Debug.Log("OnApplicationFocus::Error - gameTimer is null!");
+            
         }
     }
 

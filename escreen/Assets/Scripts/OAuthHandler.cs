@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 using System;
 
 [Serializable]
-public class Token
+public class AccessToken
 {
     public string access_token;
 }
@@ -14,71 +14,69 @@ public static class OAuthHandler
 {
     public static IEnumerator GetAccessToken(Action<string> result)
     {
-        Dictionary<string, string> content = new Dictionary<string, string>();
-        //Fill key and value
-        content.Add("client_id", "297e7ed51-e6e2-4b99-9fbf-4127e3912667");
-        content.Add("client_secret", "RadovTu5OaGe");
-        content.Add("user", "apiuser");
-        content.Add("password", "Eobap9Ou]Ce~Uu");
+        //DEBUG NOTES:
+        //This is on the right track (general premise is to send the fields provided from Slack as the body for the POST, downloadHandler.text should return a JSON body if it's working correctly
 
-        UnityWebRequest request = UnityWebRequest.Post("http://stage.escreen.radiantexp.com/oauth/token", content);
-        //Send request
+        //Issue might not be a parsing issue, rather an issue with the POST not sending what's expected properly
+        //Seems to be a Get and not after a POST
+
+        //Using MultipartFormData
+        /*
+        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+        formData.Add(new MultipartFormDataSection("grant_type", "password"));
+        formData.Add(new MultipartFormDataSection("client_id", "97e7ed51-e6e2-4b99-9fbf-4127e3912667"));
+        formData.Add(new MultipartFormDataSection("client_secret", "RadovTu5OaGe"));
+        formData.Add(new MultipartFormDataSection("username", "apiuser"));
+        formData.Add(new MultipartFormDataSection("password", "Eobap9Ou]Ce~Uu"));
+        */
+
+        //Using WWWForm
+        /*
+        WWWForm formData = new WWWForm();
+        formData.AddField("grant_type", "password");
+        formData.AddField("client_id", "97e7ed51-e6e2-4b99-9fbf-4127e3912667");
+        formData.AddField("client_secret", "RadovTu5OaGe");
+        formData.AddField("username", "apiuser");
+        formData.AddField("password", "Eobap9Ou]Ce~Uu");*/
+
+        //Using Dictionary Key-value pairs provided from Slack
+        Dictionary<string, string> formData = new Dictionary<string, string>();
+        formData.Add("grant_type", "password");
+        formData.Add("client_id", "97e7ed51-e6e2-4b99-9fbf-4127e3912667");
+        formData.Add("client_secret", "RadovTu5OaGe");
+        formData.Add("username", "apiuser");
+        formData.Add("password", "Eobap9Ou]Ce~Uu");
+
+        //UnityWebRequest request = UnityWebRequest.Post("http://stage.escreen.radiantexp.com/oauth/token?_format=json", formData);
+        UnityWebRequest request = UnityWebRequest.Post("http://stage.escreen.radiantexp.com/oauth/token", formData);
+
         yield return request.SendWebRequest();
 
-        if (!request.isNetworkError)
-        {
-            string resultContent = request.downloadHandler.text;
-            Token tokenJson = JsonUtility.FromJson<Token>(resultContent);
+        //DEBUG NOTES:
+        //This post is receiving a responseCode 405, meaning it isn't POSTing correctly.
 
-            //Return result
+        Debug.Log(request.responseCode);
+
+        if (!request.isNetworkError) //If no errors returned, get the access token
+        {
+            Debug.Log("POST successful!");
+
+            string resultContent = request.downloadHandler.text;
+
+            Debug.Log(resultContent);
+
+            AccessToken tokenJson = JsonUtility.FromJson<AccessToken>(request.downloadHandler.text);
+
+            Debug.Log(tokenJson);
+
             result(tokenJson.access_token);
         }
+        
         else
         {
             //Return null
-            result("");
-        }
-    }
+            Debug.Log("POST failed!");
 
-    public static IEnumerator GetTimer(string user, Action<string> result)
-    {
-        Dictionary<string, string> content = new Dictionary<string, string>();
-        //Fill key and value
-        content.Add("UserID", user);
-        content.Add("Count", "0");
-        content.Add("Resources", "0");
-        content.Add("Spirit", "0");
-        content.Add("Mindset", "0");
-        content.Add("Talent", "0");
-
-        UnityWebRequest www = UnityWebRequest.Post("http://stage.escreen.radiantexp.com/oauth/debug", content);
-
-        string token = null;
-
-        yield return OAuthHandler.GetAccessToken((tokenResult) => { token = tokenResult; });
-
-        www.SetRequestHeader("Authorization", "Bearer " + token);
-        www.SendWebRequest();
-
-        if (!www.isNetworkError)
-        {
-            string resultContent = www.downloadHandler.text;
-            Timer resultTimer = JsonUtility.FromJson<Timer>(resultContent);
-
-            //Populate the Timer here
-            Debug.Log("LOADED TIMER: " + resultTimer.ToString());
-            Debug.Log("Count: " + resultTimer.Count);
-            Debug.Log("Resources: " + resultTimer.ResourcesAmount);
-            Debug.Log("Spirit: " + resultTimer.SpiritAmount);
-            Debug.Log("Mindset: " + resultTimer.MindsetAmount);
-            Debug.Log("Talent: " + resultTimer.TalentAmount);
-
-            //Return result
-            result(resultTimer.ToString());
-        }
-        else
-        {
-            //Return null
             result("");
         }
     }
